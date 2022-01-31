@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Framework</title>
+</head>
+<body>
+
+<h1 th:text="'Todos for user ' + ${user.userName}" />
+
+<td><a th:href="@{/users}">Back</a></td>
+<th><a th:href="@{/todo/add/{userId}(userId=${user.id})}">Add todo</a></th>
+
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Severity</th>
+        <th>Completed</th>
+        <th>Edit</th>
+    </tr>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.id}"></td>
+        <td th:text="${todo.description}"></td>
+        <td th:text="${todo.severity}"></td>
+        <td th:text="${todo.completed}"></td>
+        <td><a th:href="@{/todo/{id}/edit(id=${todo.id})}">Edit</a></td>
+
+    </tr>
+
+
+
+</table>
+
+
+
+</body>
+</html>

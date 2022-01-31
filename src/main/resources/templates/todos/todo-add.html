@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Framework</title>
+</head>
+<body>
+<h1>Add todo</h1>
+
+<table>
+    <form th:action="@{/todo/update/{id}(id=${user.id})}"
+          th:object="${todo}" method="POST">
+        <table>
+            <tr>
+                <td>Description</td>
+                <td>:</td>
+                <td><input type="text" th:field="*{description}" /></td>
+            </tr>
+            <td>Severity</td>
+            <td>:</td>
+            <td>
+                <select th:field="*{severity}">
+                    <option th:value="'Low'" th:text="Low"></option>
+                    <option th:value="'High'" th:text="High"></option>
+                </select>
+            </td>
+            </tr>
+            <tr>
+                <td>Comleted</td>
+                <td>:</td>
+                <td><input type="checkbox" th:field="*{completed}"/></td>
+            </tr>
+            <tr>
+                <td>User</td>
+                <td>:</td>
+                <td th:utext="${user.userName}">...</td>
+            </tr>
+        </table>
+        <input type="submit" th:value="Submit" />
+    </form>
+</table>
+<br/>
+
+</body>
+</html>

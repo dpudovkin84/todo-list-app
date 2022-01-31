@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Framework</title>
+</head>
+<body>
+<h1>User list</h1>
+
+<td><a th:href="@{/users}">Back</a></td>
+<th><a th:href="@{/user/add}">Add user</a></th>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>UserName</th>
+        <th>View Todos</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.userName}"></td>
+        <td><a th:href="@{/user/todos/{id}(id=${user.id})}">View Todos</a></td>
+        <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Edit User</a></td>
+        <td><a th:href="@{/user/delete/{id}(id=${user.id})}">Delete User</a></td>
+
+    </tr>
+
+</table>
+
+
+
+</body>
+</html>
