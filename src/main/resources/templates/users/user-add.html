@@ -5,7 +5,7 @@
     <title>Spring Framework</title>
 </head>
 <body>
-<h1>Add todo</h1>
+<h1>Registration page</h1>
 
 <table>
     <form th:action="@{/user/save}"
@@ -14,7 +14,7 @@
             <tr>
                 <td>Username</td>
                 <td>:</td>
-                <td><input type="text" th:field="*{userName}"/></td>
+                <td><input type="text" th:field="*{username}"/></td>
             </tr>
             <tr>
                 <td>Email</td>
@@ -27,9 +27,14 @@
                 <td><input type="text" th:field="*{password}"/></td>
             </tr>
             <tr>
-                <td>Todo list</td>
-                <td>:</td>
-                <td><input type="text" th:field="*{todos}"/></td>
+<!--                <td>Todo list</td>-->
+<!--                <td>:</td>-->
+                <td><input type="hidden" th:field="*{todos}"/></td>
+            </tr>
+            <tr>
+<!--                <td>Roles </td>-->
+<!--                <td>:</td>-->
+                <td><input type="hidden" th:field="*{roles}"/></td>
             </tr>
         </table>
         <input type="submit" th:value="Submit"/>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Spring Framework</title>
 </head>
 <body>
-<h1>Add todo</h1>
+<h1>Edit user</h1>
 
 <table>
     <form th:action="@{/user/save}"
@@ -20,8 +21,8 @@
             <tr>
                 <td>Username</td>
                 <td>:</td>
-                <td th:utext="${user.userName}"></td>
-                <td><input type="hidden" th:field="*{userName}"/></td>
+                <td th:utext="${user.username}"></td>
+                <td><input type="hidden" th:field="*{username}"/></td>
             </tr>
             <tr>
                 <td>Email</td>
@@ -39,7 +40,18 @@
                 <td th:utext="${user.todos}"></td>
                 <td><input type="hidden" th:field="*{todos}"/></td>
             </tr>
+            <tr>
+                <td>Roles</td>
+                <td>:</td>
+                <td th:utext="${user.roles}"></td>
+<!--                <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                <td><a th:href="@{user/edit/role/{username}/edit(username=${user.id})}">Edit Roles</a></td>-->
+<!--                </div>-->
+                <td><input type="hidden" th:field="*{roles}"/></td>
+            </tr>
+
         </table>
+
         <input type="submit" th:value="Submit"/>
     </form>
 </table>

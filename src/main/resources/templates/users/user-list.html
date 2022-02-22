@@ -7,7 +7,7 @@
 <body>
 <h1>User list</h1>
 
-<td><a th:href="@{/users}">Back</a></td>
+<td><a th:href="@{/}">Home</a></td>
 <th><a th:href="@{/user/add}">Add user</a></th>
 
 <table>
@@ -20,10 +20,10 @@
     </tr>
     <tr th:each="user : ${userList}">
         <td th:text="${user.id}"></td>
-        <td th:text="${user.userName}"></td>
+        <td th:text="${user.username}"></td>
         <td><a th:href="@{/user/todos/{id}(id=${user.id})}">View Todos</a></td>
-        <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Edit User</a></td>
-        <td><a th:href="@{/user/delete/{id}(id=${user.id})}">Delete User</a></td>
+        <td><a th:href="@{/user/edit/{username}(username=${user.username})}">Edit User</a></td>
+        <td><a th:href="@{/user/delete/{username}(username=${user.username})}">Delete User</a></td>
 
     </tr>
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Framework</title>
+</head>
+<body>
+<h1>Edit roles</h1>
+
+<table>
+    <form th:action="@{/user/save}"
+          th:object="${roleMap}" method="POST">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+            </tr>
+            <tr th:each="role : ${roleMap.entrySet()}">
+                <td th:text="${role.key}"></td>
+                <td>:</td>
+                <td><input type="hidden" th:value="*{role.}"/></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>RoleName</th>
+                <!--                <th>View Todos</th>-->
+                <!--                <th>Edit</th>-->
+                <!--                <th>Delete</th>-->
+            </tr>
+            <tr th:each="role : ${roles}">
+                <td th:text="${role.id}"></td>
+                <td th:text="${role.name}"></td>
+                <td th:text="${roles.add(role)}"></td>
+                <!--                <td><a th:href="@{/user/todos/{id}(id=${user.id})}">View Todos</a></td>-->
+                <!--                <td><a th:href="@{/user/edit/{username}(username=${user.username})}">Edit User</a></td>-->
+                <!--                <td><a th:href="@{/user/delete/{username}(username=${user.username})}">Delete User</a></td>-->
+
+            </tr>
+
+        </table>
+        <input type="submit" th:value="Submit"/>
+    </form>
+</table>
+<br/>
+
+</body>
+</html>

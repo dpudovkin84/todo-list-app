@@ -1,20 +1,21 @@
 package edu.my.app.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
     @Column
-    private String userName;
+    private String username;
     @Column
     private String email;
 
@@ -24,12 +25,17 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private Set<Todo> todos;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
+
     public User() {
     }
 
-    public User(String userName) {
-        this.userName = userName;
+    public User(String username) {
+        this.username = username;
         this.todos=new HashSet<>();
+        this.roles=new HashSet<>();
     }
 
     public Long getId() {
@@ -40,12 +46,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Set<Todo> getTodos() {
@@ -68,8 +74,16 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String surname) {
+        this.email = surname;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public void addTodo(Todo todo){
@@ -79,13 +93,40 @@ public class User {
         todos.add(todo);
         todo.setUser(this);
     }
+    public void addRole(Role role){
+        roles.add(role);
+    }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 
@@ -94,11 +135,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userName, user.userName);
+        return Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName);
+        return Objects.hash(username);
     }
 }

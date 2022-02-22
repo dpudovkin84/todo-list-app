@@ -29,18 +29,18 @@ public class UserRestController {
         return userService.saveUser(user);
     }
 
-    @GetMapping("/users/name/{userName}")
-    public User getUserByName(@PathVariable String userName){
-        return userService.getUser(userName);
+    @GetMapping("/users/name/{username}")
+    public User getUserByName(@PathVariable String username){
+        return userService.getUser(username);
     }
 
-    @PostMapping("/users/addTodo/{userName}")
-    public User addTodo(@PathVariable String userName, @RequestBody Todo todo){
-        return userService.addTodoToUser(userName,todo);
+    @PostMapping("/users/addTodo/{username}")
+    public User addTodo(@PathVariable String username, @RequestBody Todo todo){
+        return userService.addTodoToUser(username,todo);
     }
 
-    @DeleteMapping("/users/{userName}")
-    public String deleteUser(@PathVariable String userName){
-       return userService.deleteUser(userName);
+    @DeleteMapping("/users/{username}")
+    public String deleteUser(@PathVariable String username){
+       return userService.deleteUser(username);
     }
 }

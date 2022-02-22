@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Главная</title>
+</head>
+<body>
+<h3><div th:text="'Greetings '+${#authentication.name}+' !!!'"></div></h3>
+
+<div>
+    <p sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></p>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        This content is only shown to Admin users:
+        <br>
+        <th><a th:href="@{/users}">Manage users</a></th>
+        <br>
+        <br>
+    </div>
+</div>
+<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+    <td><a th:href="@{/user/{username}/todos/(username=${#authentication.getName()})}">Manage Todos</a></td>
+</div>
+<br>
+<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+    <td><a th:href="@{/user/edit/{username}(username=${#authentication.getName()})}">Edit account</a></td>
+</div>
+<br>
+<br>
+<div sec:authorize="isAnonymous()">
+    <th><a th:href="@{/user/add}">Creat new account</a></th>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <th><a th:href="@{/logout}">Logout</a></th>
+</div>
+</body>
+</html>

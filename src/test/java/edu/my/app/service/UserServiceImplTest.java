@@ -24,6 +24,8 @@ class UserServiceImplTest {
 
     UserService userService;
     @Mock
+    RoleService roleService;
+    @Mock
     UserRepository userRepository;
 
     User user1;
@@ -35,7 +37,7 @@ class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        userService=new UserServiceImpl(userRepository);
+        userService=new UserServiceImpl(userRepository,roleService);
         user1=new User("Mark");
         user2=new User("Tacit");
         user2.setId(2L);
@@ -47,7 +49,7 @@ class UserServiceImplTest {
         todo1=new Todo("TestJob1","High");
         todo2=new Todo("TestJob2","Low");
         when(userRepository.findAll()).thenReturn(usersData);
-            when(userRepository.findUserByUserName("Tacit")).
+            when(userRepository.findUserByUsername("Tacit")).
                 thenReturn(user2);
         when(userRepository.findById(2L)).thenReturn(Optional.of(user2));
         when(userRepository.save(user2)).thenReturn(user2);
@@ -66,7 +68,7 @@ class UserServiceImplTest {
     void getUser() {
     assertEquals(userService.getUser("Tacit"),user2);
     assertEquals(userService.getUser(2L),user2);
-    verify(userRepository,times(1)).findUserByUserName("Tacit");
+    verify(userRepository,times(1)).findUserByUsername("Tacit");
     verify(userRepository,times(1)).findById(2L);
     Exception exception=assertThrows(UserNotFoundException.class,()->{
         userService.getUser("noname");});
@@ -82,7 +84,7 @@ class UserServiceImplTest {
         ArgumentCaptor<User> argumentCaptor=ArgumentCaptor.forClass(User.class);
         userService.addTodoToUser("Tacit",todo1);
         assertTrue(user2.getTodos().contains(todo1));
-        verify(userRepository,times(1)).findUserByUserName("Tacit");
+        verify(userRepository,times(1)).findUserByUsername("Tacit");
         verify(userRepository,times(1)).save(user2);
         verify(userRepository,times(1)).save(argumentCaptor.capture());
         User capturedUser=argumentCaptor.getValue();
